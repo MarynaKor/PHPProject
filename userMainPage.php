@@ -12,7 +12,7 @@
             <li><a href="contact.asp">Cloud</a></li>
             <li><a href="contact.asp">WebDev</a></li>
             <li><a href="about.asp">ETC</a></li>
-            <li><a href="start.html" class="red">LogOut</a></li>
+            <li><a href="start.php" class="red">LogOut</a></li>
 
         </ul>
     </header>    
@@ -34,7 +34,7 @@
         </div>
         </li>
       </ul>
-    <Button><a href="createArticle.html">Create New Article</a></Button>
+    <Button><a href="createArticle.php">Create New Article</a></Button>
     </div>
     </main>
     <footer>
