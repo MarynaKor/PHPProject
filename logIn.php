@@ -18,7 +18,7 @@
     <div class="forms">
         <div class="form_container">
             <h2>Register</h2>
-            <form action="/registerNew" method="POST">
+            <form action="/register" method="POST">
                 <div class="form-group">
                     <label for="username">Benutzername:</label>
                     <input type="text" id="username" name="username" required>
@@ -31,7 +31,7 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-               <button><a href="userMainPage.php" > register</a></button>
+               <button>register</button>
             </form>
         </div>
         <div class="form_container">
