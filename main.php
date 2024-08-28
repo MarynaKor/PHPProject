@@ -22,7 +22,6 @@
                     $stmt->execute();
                     //results
                     $results = $stmt->get_result();
-                
                     if(empty($results)) {
                         //prepare query 
                         $sql = "INSERT INTO Users (Name, EMail, Password)  VALUES (?, ?, ?)";
