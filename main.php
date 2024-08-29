@@ -22,8 +22,14 @@
                     $stmt->execute();
                     //results
                     $results = $stmt->get_result();
-                    if(empty($results)) {
-                        //prepare query 
+                
+                    if ($results->num_rows > 0) {
+                            echo '<script type ="text/JavaScript">';  
+                            echo 'alert("It seems like this user already exists!") ';  
+                            echo '</script>';
+                            echo "$stmt";
+                            //header("Location: start.php");
+                    }else{
                         $sql = "INSERT INTO Users (Name, EMail, Password)  VALUES (?, ?, ?)";
                         $stmt = $conm->prepare($sql);
                         // bind the parameter
@@ -35,13 +41,6 @@
                             echo '</script>';
                             header("Location: start.php");
                             exit();
-                        }
-                    }else{
-                        echo '<script type ="text/JavaScript">';  
-                            echo 'alert("It seems like this user already exists!")';  
-                            echo '</script>';
-                            echo "$stmt";
-                            //header("Location: start.php");
                         }
                 }
         
