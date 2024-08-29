@@ -69,9 +69,9 @@
                     if ($results->num_rows > 0) {
                         header("Location: createArticle.php");
                     }else{
-                        echo"There was an error try again or if you don't have an account please register.";
+                        print_r($results);
+                    }
                 }
-            }
                 echo "Welcome back!";
                 break;
             
