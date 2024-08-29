@@ -60,7 +60,7 @@
                     $stmt = $conm->prepare($sql);
 
                     // bind the parameter 
-                    $stmt->bind_param('ss', $name, $email);
+                    $stmt->bind_param('ss', $name, $password);
                     //execution
                     $stmt->execute();
                     //results
