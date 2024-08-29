@@ -76,7 +76,6 @@
                         print_r($results);
                     }
                 }
-                echo "Welcome back!";
                 break;
             
             
