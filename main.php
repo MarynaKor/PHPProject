@@ -37,11 +37,12 @@
                         //$stmt->execute();
                         //print_r($stmt);
                         if ($stmt->execute()) {
-                            header("Location: start.php");
+                            //header("Location: start.php");
                             echo"Account created";
                             echo '<script type ="text/JavaScript">';  
                             echo 'alert("User has been successfully created")';  
                             echo '</script>';
+                            header("Location: start.php");
                             exit();  
                          }else{
                             echo"account error";
@@ -60,13 +61,16 @@
                     $stmt = $conm->prepare($sql);
 
                     // bind the parameter 
-                    $stmt->bind_param('ss', $name, $password);
+                    $stmt->bind_param('ss', $name, $hash_password);
                     //execution
                     $stmt->execute();
                     //results
                     $results = $stmt->get_result();
                     
                     if ($results->num_rows > 0) {
+                        echo '<script type ="text/JavaScript">';  
+                        echo 'alert("User has been successfully created")';  
+                        echo '</script>';
                         header("Location: createArticle.php");
                     }else{
                         print_r($results);
