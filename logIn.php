@@ -45,7 +45,7 @@
                     <label for="password">Passwort:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-               <button><a href="userMainPage.php" > logIn </a> </button>
+                <input type="submit" value="login">
             </form>
         </div>  
     </div>         

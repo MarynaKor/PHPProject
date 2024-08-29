@@ -7,9 +7,9 @@
         switch($action){
             case 'register':
                 if($_SERVER["REQUEST_METHOD"] == "POST"){
-                    $name = $_POST['Name'];
-                    $email = $_POST['EMail'];
-                    $password = $_POST['Password'];
+                    $name = $_POST['username'];
+                    $password = $_POST['password'];
+                    $email = $_POST['email'];
                     //encode the password for security reason
                     $hash_password = md5($password);
                     //if user exist then don't create a new
@@ -22,30 +22,56 @@
                     $stmt->execute();
                     //results
                     $results = $stmt->get_result();
-                
+                    
                     if ($results->num_rows > 0) {
-                            echo '<script type ="text/JavaScript">';  
-                            echo 'alert("It seems like this user already exists!") ';  
-                            echo '</script>';
-                            echo "$stmt";
-                            //header("Location: start.php");
+                        echo '<script type ="text/JavaScript">';  
+                        echo 'alert("It seems like this user already exists!") ';  
+                        echo '</script>';
+                        header("Location: start.php");
                     }else{
-                        $sql = "INSERT INTO Users (Name, EMail, Password)  VALUES (?, ?, ?)";
+                        $sql = "INSERT INTO Users (Name, Password, EMail)  VALUES (?, ?, ?)";
                         $stmt = $conm->prepare($sql);
                         // bind the parameter
-                        $stmt->bind_param('sss', $name, $email, $hash_password);
+                        $stmt->bind_param('sss', $name, $hash_password, $email);
                         //execution
-                        if ($stmt ->execute()) {
+                        //$stmt->execute();
+                        //print_r($stmt);
+                        if ($stmt->execute()) {
+                            header("Location: start.php");
+                            echo"Account created";
                             echo '<script type ="text/JavaScript">';  
                             echo 'alert("User has been successfully created")';  
                             echo '</script>';
-                            header("Location: start.php");
-                            exit();
-                        }
+                            exit();  
+                         }else{
+                            echo"account error";
+                         } 
                 }
-        
+            }
                 break;
             case 'login':
+                if($_SERVER["REQUEST_METHOD"] == "POST"){
+                    $name = $_POST['username'];
+                    $password = $_POST['password'];
+                    //encode the password for security reason
+                    $hash_password = md5($password);
+                    //if user exist then don't create a new
+                    $sql = "SELECT * FROM Users WHERE Name = ? AND Password = ?";
+                    $stmt = $conm->prepare($sql);
+
+                    // bind the parameter 
+                    $stmt->bind_param('ss', $name, $email);
+                    //execution
+                    $stmt->execute();
+                    //results
+                    $results = $stmt->get_result();
+                    
+                    if ($results->num_rows > 0) {
+                        header("Location: createArticle.php");
+                    }else{
+                        echo"There was an error try again or if you don't have an account please register.";
+                }
+            }
                 echo "Welcome back!";
                 break;
             
