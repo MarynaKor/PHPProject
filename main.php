@@ -69,8 +69,8 @@
                     
                     if ($results->num_rows > 0) {
                         echo '<script type ="text/JavaScript">';  
-                        echo 'alert("User has been successfully created")';  
-                        echo 'window.location.href="createArticle.php"';
+                        echo 'alert("User has been successfully created");';  
+                        echo 'window.location.href="/createArticle.php"';
                         echo '</script>';
                         exit();
                     }else{
