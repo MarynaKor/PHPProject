@@ -1,3 +1,8 @@
+<?php 
+include 'dbconnect.php';
+$sql = "SELECT * FROM Articles";
+$results = $conm->query($sql);
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,7 +25,15 @@
     <div class ="user_main">
       <ul class="block">
         <li>
-          <h3> Name of Article</h3>
+        <?php
+            if ($results->num_rows > 0) {
+              while($row = $results->fetch_assoc()) {
+                echo "<h3>" . $row["Title"] ."</h3>";
+                } 
+            } else { 
+                echo "Sorry, No articles present"; 
+                }
+            ?>
           <div>
             <Button class="delete right"> Delete</Button>
             <Button class="edit right"> Edit</Button>
