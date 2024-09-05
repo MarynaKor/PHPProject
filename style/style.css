@@ -98,21 +98,25 @@ input[type="text"],input[type="password"],input[type="email"], textarea {
     border: 1px solid #ccc;
     border-radius: 7px;
 }
-button, input[type="submit"] {
+button, .back-btn, input[type="submit"], input[type="button"] {
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin: 5px;
 }
-.submit-btn, input[type="submit"] {
+.back-btn{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+.submit-btn, input[type="submit"],input[type="button"] {
     background-color: rgba(78, 78, 248, 0.596);
     color: white;
 }
-.back-btn {
-    background-color: rgba(108, 108, 229, 0.901);
-    color: white;
-}
+
 .forms{
     justify-content: center;
     display: flex;

@@ -24,8 +24,8 @@
                     if ($results->num_rows > 0) {
                         echo '<script type ="text/JavaScript">';  
                         echo 'alert("It seems like this user already exists!") ';  
+                        echo 'window.location.href="logIn.php"';
                         echo '</script>';
-                        header("Location: start.php");
                     }else{
                         $sql = "INSERT INTO Users (Name, Password, EMail)  VALUES (?, ?, ?)";
                         $stmt = $conm->prepare($sql);
@@ -36,11 +36,10 @@
                         //print_r($stmt);
                         if ($stmt->execute()) {
                             //header("Location: start.php");
-                            echo"Account created";
                             echo '<script type ="text/JavaScript">';  
-                            echo 'alert("User has been successfully created")';  
+                            echo 'alert("User has been successfully created, Please Log In now with you credentials!")';  
+                            echo 'window.location.href="logIn.php"';
                             echo '</script>';
-                            header("Location: start.php");
                             exit();  
                         }else{
                             echo"account error";
@@ -88,6 +87,63 @@
                 session_destroy();
                 header("Location: start.php");
                 exit;
+            case'create Article':
+                if($_SERVER["REQUEST_METHOD"] == "POST"){
+                    $title = $_POST['title'];
+                    $content = $_POST['content'];
+                    $_SESSION["userId"]= $idUser;
+                    if(isset($_POST[checkDatabases])){
+                        $idTopic = 2;
+                    }else if(isset($_POST[checkAI])){
+                        $idTopic = 1;
+                    }else if(isset($_POST[checkCloud])){
+                        $idTopic = 3;
+                    }else if(isset($_POST[checkWebDev])){
+                        $idTopic = 4;
+                    }else if(isset($_POST[checkETC])){
+                        $idTopic = 5;
+                    }else{
+                        echo '<script type ="text/JavaScript">';  
+                        echo 'alert("An Article with this title already exists, please change your title!") ';  
+                        echo 'window.location.href="createArticle.php"';
+                        echo '</script>';
+                    }
+                    //if title exists then please refer for the user to change the title
+                    $sql = "SELECT * FROM Articles WHERE Title= ? ";
+                    $stmt = $conm->prepare($sql);
+                    // bind the parameter 
+                    $stmt->bind_param('s', $title);
+                    //execution
+                    $stmt->execute();
+                    //results
+                    $results = $stmt->get_result();
+                    
+                    if ($results->num_rows > 0) {
+                        echo '<script type ="text/JavaScript">';  
+                        echo 'alert("An Article with this title already exists, please change your title!") ';  
+                        echo 'window.location.href="logIn.php"';
+                        echo '</script>';
+                    }else{
+                        $sql = "INSERT INTO Article (Title, Content, Author, Topic)  VALUES (?, ?, ?, ?, ?)";
+                        $stmt = $conm->prepare($sql);
+                        // bind the parameter
+                        $stmt->bind_param('sss', $title, $content, $idUser);
+                        //execution
+                        //$stmt->execute();
+                        //print_r($stmt);
+                        if ($stmt->execute()) {
+                            //header("Location: start.php");
+                            echo"Account created";
+                            echo '<script type ="text/JavaScript">';  
+                            echo 'alert("User has been successfully created")';  
+                            echo '</script>';
+                            header("Location: start.php");
+                            exit();  
+                        }else{
+                            echo"account error";
+                        } 
+                }
+            }
             
             default:
                 echo "default case!";

@@ -18,22 +18,22 @@
     <main class="">
         <h2>Artikel Einsenden</h2>
 
-        <form action="#" method="post">
+        <form action="main.php?action=createArticle" method="POST">
           <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="checkbox" value="Databases"> Databases
+                <input type="checkbox" name="checkDatabases" value="Databases"> Databases
             </label>
             <label>
-                <input type="checkbox" name="checkbox" value="AI"> AI
+                <input type="checkbox" name="checkAI" value="AI"> AI
             </label>
             <label>
-                <input type="checkbox" name="checkbox" value="Cloud"> Cloud
+                <input type="checkbox" name="checkCloud" value="Cloud"> Cloud
             </label>
             <label>
-                <input type="checkbox" name="checkbox" value="WebDev"> WebDev
+                <input type="checkbox" name="checkWebDev" value="WebDev"> WebDev
             </label>
             <label>
-              <input type="checkbox" name="checkbox" value="ETC"> ETC
+              <input type="checkbox" name="checkETC" value="ETC"> ETC
           </label>
         </div>
             <label for="title">Titel:</label>
@@ -42,8 +42,8 @@
             <label for="content">Inhalt:</label>
             <textarea id="content" name="content" rows="8" required></textarea>
         
-            <button type="submit" class="submit-btn">Einsenden</button>
-            <button type="button" class="back-btn" onclick="window.history.back();"> Zurück</button>
+            <input type="submit" value="Create Article">
+            <button class="back-btn" onclick="window.history.back();">  Go Back <button>
         </form>
     </div>
     </main>
