@@ -31,7 +31,7 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-               <input type="submit" value="register">
+            <input type="submit" value="register">
             </form>
         </div>
         <div class="form_container">

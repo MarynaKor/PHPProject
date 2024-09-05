@@ -1,7 +1,24 @@
 <?php 
 include 'dbconnect.php';
-$sql = "SELECT * FROM Articles";
-$results = $conm->query($sql);
+session_start();
+if(!isset($_SESSION["userLoggedIn"])){
+  header("location: start.php");
+}
+$username = $_SESSION['userLoggedIn'];
+$sql = "SELECT * FROM Users WHERE Name = ?";
+$stmt= $conm->prepare($sql);
+$stmt->bind_param('s', $username);
+$stmt->execute();
+$results = $stmt->get_result();
+$user = $results->fetch_assoc();
+$idUser = $user["ID"];
+$_SESSION["userId"]= $idUser;
+//Selecting the articles
+$sql = "SELECT * FROM Articles WHERE Author = ?";
+$stmt= $conm->prepare($sql);
+$stmt->bind_param('s', $idUser);
+$stmt->execute();
+$results = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,35 +34,28 @@ $results = $conm->query($sql);
             <li><a href="contact.asp">Cloud</a></li>
             <li><a href="contact.asp">WebDev</a></li>
             <li><a href="about.asp">ETC</a></li>
-            <li><a href="start.php" class="red">LogOut</a></li>
+            <li><a href="main.php?action=logout" class="red">LogOut</a></li>
 
         </ul>
     </header>    
     <main>
     <div class ="user_main">
       <ul class="block">
-        <li>
-        <?php
-            if ($results->num_rows > 0) {
-              while($row = $results->fetch_assoc()) {
-                echo "<h3>" . $row["Title"] ."</h3>";
-                } 
-            } else { 
-                echo "Sorry, No articles present"; 
-                }
-            ?>
-          <div>
-            <Button class="delete right"> Delete</Button>
-            <Button class="edit right"> Edit</Button>
-        </div>
-        </li>
-        <li>
-          <h3> Name of Article</h3>
-          <div>
-            <Button class="delete right"> Delete</Button>
-            <Button class="edit right"> Edit</Button>
-        </div>
-        </li>
+          <?php
+          if ($results->num_rows > 0) {
+              while($row = $results->fetch_assoc()) { ?>
+                <li>
+                <h3><?php echo($row["Title"])?></h3>
+                <div>
+                <Button class="delete right"> Delete</Button>
+                <Button class="edit right"> Edit</Button>
+                </div>
+            </li>
+          <?php } 
+        }else{
+        echo "Sorry seems like you have no articles...";
+        }
+        ?>
       </ul>
     <Button><a href="createArticle.php">Create New Article</a></Button>
     </div>

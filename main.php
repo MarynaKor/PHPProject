@@ -3,7 +3,6 @@
 
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
-
         switch($action){
             case 'register':
                 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -15,7 +14,6 @@
                     //if user exist then don't create a new
                     $sql = "SELECT * FROM Users WHERE Name = ? OR EMail = ?";
                     $stmt = $conm->prepare($sql);
-
                     // bind the parameter 
                     $stmt->bind_param('ss', $name, $email);
                     //execution
@@ -44,9 +42,9 @@
                             echo '</script>';
                             header("Location: start.php");
                             exit();  
-                         }else{
+                        }else{
                             echo"account error";
-                         } 
+                        } 
                 }
             }
                 break;
@@ -68,17 +66,28 @@
                     $results = $stmt->get_result();
                     
                     if ($results->num_rows > 0) {
+                        session_start();
+                        $_SESSION["userLoggedIn"] = $name;
                         echo '<script type ="text/JavaScript">';  
-                        echo 'alert("User has been successfully created");';  
                         echo 'window.location.href="userMainPage.php"';
                         echo '</script>';
                         exit();
                     }else{
                         print_r($results);
+                        echo '<script type ="text/JavaScript">';  
+                        echo 'alert("User has been successfully created")';  
+                        echo 'window.location.href="logIn.php"';
+                        echo '</script>';
+                        
                     }
                 }
                 break;
-            
+            case 'logout':
+                session_start();
+                session_unset(); //deletes all the variables that we saved 
+                session_destroy();
+                header("Location: start.php");
+                exit;
             
             default:
                 echo "default case!";
