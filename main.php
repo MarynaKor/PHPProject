@@ -104,7 +104,7 @@
                         $idTopic = 5;
                     }else{
                         echo '<script type ="text/JavaScript">';  
-                        echo 'alert("An Article with this title already exists, please change your title!") ';  
+                        echo 'alert("You forgot to choose which topic it belongs, please chose a topic!") ';  
                         echo 'window.location.href="createArticle.php"';
                         echo '</script>';
                     }
@@ -124,23 +124,21 @@
                         echo 'window.location.href="logIn.php"';
                         echo '</script>';
                     }else{
-                        $sql = "INSERT INTO Article (Title, Content, Author, Topic)  VALUES (?, ?, ?, ?, ?)";
+                        $sql = "INSERT INTO Articles (Title, Content, Author, Topic)  VALUES (?, ?, ?, ?)";
                         $stmt = $conm->prepare($sql);
                         // bind the parameter
-                        $stmt->bind_param('sss', $title, $content, $idUser);
+                        $stmt->bind_param('ssii', $title, $content, $idUser, $idTopic);
                         //execution
-                        //$stmt->execute();
-                        //print_r($stmt);
                         if ($stmt->execute()) {
                             //header("Location: start.php");
                             echo"Account created";
                             echo '<script type ="text/JavaScript">';  
-                            echo 'alert("User has been successfully created")';  
+                            echo 'alert("Article has been created! Thank you for your work!")';  
                             echo '</script>';
                             header("Location: start.php");
                             exit();  
                         }else{
-                            echo"account error";
+                            echo"ooops something went wrong...";
                         } 
                 }
             }
