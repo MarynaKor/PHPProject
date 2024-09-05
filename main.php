@@ -1,6 +1,6 @@
 <?php 
     include "dbconnect.php";
-
+    session_start();
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         switch($action){
@@ -65,7 +65,6 @@
                     $results = $stmt->get_result();
                     
                     if ($results->num_rows > 0) {
-                        session_start();
                         $_SESSION["userLoggedIn"] = $name;
                         echo '<script type ="text/JavaScript">';  
                         echo 'window.location.href="userMainPage.php"';
@@ -87,21 +86,13 @@
                 session_destroy();
                 header("Location: start.php");
                 exit;
-            case'create Article':
+            case'createArticle':
                 if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $title = $_POST['title'];
                     $content = $_POST['content'];
-                    $_SESSION["userId"]= $idUser;
-                    if(isset($_POST[checkDatabases])){
-                        $idTopic = 2;
-                    }else if(isset($_POST[checkAI])){
-                        $idTopic = 1;
-                    }else if(isset($_POST[checkCloud])){
-                        $idTopic = 3;
-                    }else if(isset($_POST[checkWebDev])){
-                        $idTopic = 4;
-                    }else if(isset($_POST[checkETC])){
-                        $idTopic = 5;
+                    $idUser = $_SESSION["userId"];
+                    if(isset($_POST["topics"])){
+                        $idTopic = $_POST["topics"];
                     }else{
                         echo '<script type ="text/JavaScript">';  
                         echo 'alert("You forgot to choose which topic it belongs, please chose a topic!") ';  
@@ -140,9 +131,9 @@
                         }else{
                             echo"ooops something went wrong...";
                         } 
+                    }
+                        exit;
                 }
-            }
-            
             default:
                 echo "default case!";
                 break;

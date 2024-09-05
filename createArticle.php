@@ -21,19 +21,19 @@
         <form action="main.php?action=createArticle" method="POST">
           <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="checkDatabases" value="Databases"> Databases
+                <input type="radio" name="topics" value="2"> Databases
             </label>
             <label>
-                <input type="checkbox" name="checkAI" value="AI"> AI
+                <input type="radio" name="topics" value="1"> AI
             </label>
             <label>
-                <input type="checkbox" name="checkCloud" value="Cloud"> Cloud
+                <input type="radio" name="topics" value="3"> Cloud
             </label>
             <label>
-                <input type="checkbox" name="checkWebDev" value="WebDev"> WebDev
+                <input type="radio" name="topics" value="4"> WebDev
             </label>
             <label>
-              <input type="checkbox" name="checkETC" value="ETC"> ETC
+              <input type="radio" name="topics" value="5"> ETC
           </label>
         </div>
             <label for="title">Titel:</label>
