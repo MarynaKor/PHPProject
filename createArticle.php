@@ -43,7 +43,7 @@
             <textarea id="content" name="content" rows="8" required></textarea>
         
             <input type="submit" value="Create Article">
-            <button class="back-btn" onclick="window.history.back();">  Go Back <button>
+            <button class="back-btn" onclick="window.history.back();">Go Back</button>
         </form>
     </div>
     </main>

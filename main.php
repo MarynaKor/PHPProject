@@ -86,54 +86,82 @@
                 session_destroy();
                 header("Location: start.php");
                 exit;
-            case'createArticle':
-                if($_SERVER["REQUEST_METHOD"] == "POST"){
-                    $title = $_POST['title'];
-                    $content = $_POST['content'];
-                    $idUser = $_SESSION["userId"];
-                    if(isset($_POST["topics"])){
-                        $idTopic = $_POST["topics"];
-                    }else{
-                        echo '<script type ="text/JavaScript">';  
-                        echo 'alert("You forgot to choose which topic it belongs, please chose a topic!") ';  
-                        echo 'window.location.href="createArticle.php"';
-                        echo '</script>';
+            case 'createArticle':
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $title = $_POST['title'];
+                        $content = $_POST['content'];
+                        $idUser = $_SESSION["userId"]; // Ensure this session variable is correctly set
+                
+                        // Check if topics are set
+                        if (isset($_POST["topics"])) {
+                            $idTopic = $_POST["topics"];
+                        } else {
+                            echo '<script type="text/javascript">';
+                            echo 'alert("You forgot to choose which topic it belongs, please choose a topic!");';
+                            echo 'window.location.href="createArticle.php";'; // Correct JavaScript syntax
+                            echo '</script>';
+                            exit(); // Stop execution if no topic is selected
+                        }
+                
+                        // Check if an article with the same title already exists
+                        $sql = "SELECT * FROM Articles WHERE Title = ?";
+                        $stmt = $conm->prepare($sql);
+                        // Bind the title parameter and execute
+                        $stmt->bind_param('s', $title);
+                        $stmt->execute();
+                        $results = $stmt->get_result();
+                
+                        if ($results->num_rows > 0) {
+                            echo '<script type="text/javascript">';
+                            echo 'alert("An article with this title already exists, please change your title!");';
+                            echo 'window.location.href="createArticle.php";'; // Corrected the redirect page
+                            echo '</script>';
+                            exit();
+                        } else {
+                            // Insert the article into the database
+                            $sql = "INSERT INTO Articles (Title, Article, Author, Topic) VALUES (?, ?, ?, ?)";
+                            $stmt = $conm->prepare($sql);
+                            // Bind the parameters: 2 strings and 2 integers
+                            $stmt->bind_param('ssii', $title, $content, $idUser, $idTopic);
+                            
+                            // Execute the insert statement
+                            if ($stmt->execute()) {
+                                echo '<script type="text/javascript">';
+                                echo 'alert("Article has been created! Thank you for your work!");';
+                                echo 'window.location.href="userMainPage.php";'; // Redirect to start.php after the alert
+                                echo '</script>';
+                                exit();
+                            } else {
+                                // Print the specific error if the execution fails
+                                echo "Error occurred: " . $stmt->error;
+                            }
+                        }
+                
+                        // Close the statement and connection
+                        $stmt->close();
+                        $conm->close();
                     }
-                    //if title exists then please refer for the user to change the title
-                    $sql = "SELECT * FROM Articles WHERE Title= ? ";
+                    break;
+            case 'delete':
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $articleId = $_POST['articleId'];
+                    $sql = "DELETE FROM Articles WHERE ID = ?";
                     $stmt = $conm->prepare($sql);
                     // bind the parameter 
-                    $stmt->bind_param('s', $title);
+                    $stmt->bind_param('i', $articleId);
                     //execution
-                    $stmt->execute();
-                    //results
-                    $results = $stmt->get_result();
-                    
-                    if ($results->num_rows > 0) {
-                        echo '<script type ="text/JavaScript">';  
-                        echo 'alert("An Article with this title already exists, please change your title!") ';  
-                        echo 'window.location.href="logIn.php"';
+                    if($stmt->execute()){
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Article has been deleted!");';
+                        echo 'window.location.href="userMainPage.php";'; // Redirect to start.php after the alert
                         echo '</script>';
+                        exit();  
                     }else{
-                        $sql = "INSERT INTO Articles (Title, Content, Author, Topic)  VALUES (?, ?, ?, ?)";
-                        $stmt = $conm->prepare($sql);
-                        // bind the parameter
-                        $stmt->bind_param('ssii', $title, $content, $idUser, $idTopic);
-                        //execution
-                        if ($stmt->execute()) {
-                            //header("Location: start.php");
-                            echo"Account created";
-                            echo '<script type ="text/JavaScript">';  
-                            echo 'alert("Article has been created! Thank you for your work!")';  
-                            echo '</script>';
-                            header("Location: start.php");
-                            exit();  
-                        }else{
-                            echo"ooops something went wrong...";
-                        } 
+                        echo "File not deleted!";
                     }
-                        exit;
                 }
+                
+                break;
             default:
                 echo "default case!";
                 break;

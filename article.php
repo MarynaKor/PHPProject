@@ -47,10 +47,7 @@ $results = $stmt->get_result();
                 <li>
                 <h3><?php echo($row["Title"])?></h3>
                 <div>
-                <form method="POST" action="main.php?action=delete">
-                  <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
-                  <Button type="submit" class="delete right"> Delete</Button>
-                </form>
+                <Button class="delete right"> Delete</Button>
                 <Button class="edit right"> Edit</Button>
                 </div>
             </li>
