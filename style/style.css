@@ -98,7 +98,7 @@ input[type="text"],input[type="password"],input[type="email"], textarea {
     border: 1px solid #ccc;
     border-radius: 7px;
 }
-.back-btn, input[type="submit"], input[type="button"] {
+button.back-btn, input[type="submit"], input[type="button"] {
     padding: 10px 15px;
     border: none;
     border-radius: 4px;

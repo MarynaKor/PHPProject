@@ -91,7 +91,9 @@
                         $title = $_POST['title'];
                         $content = $_POST['content'];
                         $idUser = $_SESSION["userId"]; // Ensure this session variable is correctly set
-                
+                        if(isset($_POST["articleId"])){
+                            
+                        }else{
                         // Check if topics are set
                         if (isset($_POST["topics"])) {
                             $idTopic = $_POST["topics"];
@@ -102,15 +104,13 @@
                             echo '</script>';
                             exit(); // Stop execution if no topic is selected
                         }
-                
-                        // Check if an article with the same title already exists
+                         // Check if an article with the same title already exists
                         $sql = "SELECT * FROM Articles WHERE Title = ?";
                         $stmt = $conm->prepare($sql);
-                        // Bind the title parameter and execute
+                         // Bind the title parameter and execute
                         $stmt->bind_param('s', $title);
                         $stmt->execute();
                         $results = $stmt->get_result();
-                
                         if ($results->num_rows > 0) {
                             echo '<script type="text/javascript">';
                             echo 'alert("An article with this title already exists, please change your title!");';
@@ -118,25 +118,24 @@
                             echo '</script>';
                             exit();
                         } else {
-                            // Insert the article into the database
+                             // Insert the article into the database
                             $sql = "INSERT INTO Articles (Title, Article, Author, Topic) VALUES (?, ?, ?, ?)";
                             $stmt = $conm->prepare($sql);
-                            // Bind the parameters: 2 strings and 2 integers
+                             // Bind the parameters: 2 strings and 2 integers
                             $stmt->bind_param('ssii', $title, $content, $idUser, $idTopic);
-                            
-                            // Execute the insert statement
+                             // Execute the insert statement
                             if ($stmt->execute()) {
                                 echo '<script type="text/javascript">';
                                 echo 'alert("Article has been created! Thank you for your work!");';
-                                echo 'window.location.href="userMainPage.php";'; // Redirect to start.php after the alert
-                                echo '</script>';
-                                exit();
-                            } else {
-                                // Print the specific error if the execution fails
-                                echo "Error occurred: " . $stmt->error;
-                            }
-                        }
-                
+                                 echo 'window.location.href="userMainPage.php";'; // Redirect to start.php after the alert
+                                 echo '</script>';
+                                 exit();
+                             } else {
+                                 // Print the specific error if the execution fails
+                                 echo "Error occurred: " . $stmt->error;
+                             }
+                         }
+                       }
                         // Close the statement and connection
                         $stmt->close();
                         $conm->close();
@@ -159,8 +158,7 @@
                     }else{
                         echo "File not deleted!";
                     }
-                }
-                
+                } 
                 break;
             default:
                 echo "default case!";

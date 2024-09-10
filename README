@@ -2,22 +2,6 @@ Create a Login and register side
 topics include in create article side and are chooseable 
 individual hompeage for logged peaple with list line name of article edit or delete
 create new Dummy Articles
-1)
-log out button 
-create a case and there do the session destroy
-return the website back to start.php
-
-store the ID it ins $_SESSION["userId"]
-
-2)
-start session in that page too (this is for the insert Artcile Page createArticle.php turn form into a POST form)
-select the form 
-turn the button into submit 
-and then Insert sql query 
-
-session :
-session start ist for phpproject main url and is in all the pages active
-3)
-if(!isset($_SESSION["userLoggedIn"])){
-  header("location: start.php");
-}  add this to createArticle
+1) work on the button at userMainPage
+2) edit leading to the creatarticle with filled in stuff
+3) sort the arzicles by topic

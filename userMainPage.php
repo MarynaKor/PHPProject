@@ -51,7 +51,10 @@ $results = $stmt->get_result();
                   <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
                   <Button type="submit" class="delete right"> Delete</Button>
                 </form>
-                <Button class="edit right"> Edit</Button>
+               <form method="POST" action="main.php?action=createArticle">
+                 <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
+                 <Button type= "submit" class="edit right"> Edit</Button>
+              </form>
                 </div>
             </li>
           <?php } 
