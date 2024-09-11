@@ -37,8 +37,8 @@
                         if ($stmt->execute()) {
                             //header("Location: start.php");
                             echo '<script type ="text/JavaScript">';  
-                            echo 'alert("User has been successfully created, Please Log In now with you credentials!")';  
-                            echo 'window.location.href="logIn.php"';
+                            echo 'alert("User has been successfully created, Please Log In now with you credentials!");';  
+                            echo 'window.location.href="logIn.php;"';
                             echo '</script>';
                             exit();  
                         }else{
@@ -67,14 +67,14 @@
                     if ($results->num_rows > 0) {
                         $_SESSION["userLoggedIn"] = $name;
                         echo '<script type ="text/JavaScript">';  
-                        echo 'window.location.href="userMainPage.php"';
+                        echo 'window.location.href="userMainPage.php;"';
                         echo '</script>';
                         exit();
                     }else{
                         print_r($results);
                         echo '<script type ="text/JavaScript">';  
-                        echo 'alert("User has been successfully created")';  
-                        echo 'window.location.href="logIn.php"';
+                        echo 'alert("User has been successfully created");';  
+                        echo 'window.location.href="logIn.php";';
                         echo '</script>';
                         
                     }
@@ -128,17 +128,17 @@
                                 echo '<script type="text/javascript">';
                                 echo 'alert("Article has been created! Thank you for your work!");';
                                  echo 'window.location.href="userMainPage.php";'; // Redirect to start.php after the alert
-                                 echo '</script>';
-                                 exit();
-                             } else {
+                                echo '</script>';
+                                exit();
+                            } else {
                                  // Print the specific error if the execution fails
-                                 echo "Error occurred: " . $stmt->error;
-                             }
-                         }
-                       }
-                        // Close the statement and connection
-                        $stmt->close();
-                        $conm->close();
+                                echo "Error occurred: " . $stmt->error;
+                            }
+                        }
+                    }
+                    // Close the statement and connection
+                    $stmt->close();
+                    $conm->close();
                     }
                     break;
             case 'delete':
