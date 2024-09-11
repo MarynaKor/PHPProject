@@ -24,7 +24,7 @@
                     if ($results->num_rows > 0) {
                         echo '<script type ="text/JavaScript">';  
                         echo 'alert("It seems like this user already exists!") ';  
-                        echo 'window.location.href="logIn.php"';
+                        echo 'window.location.href="logIn.php";';
                         echo '</script>';
                     }else{
                         $sql = "INSERT INTO Users (Name, Password, EMail)  VALUES (?, ?, ?)";
@@ -38,7 +38,7 @@
                             //header("Location: start.php");
                             echo '<script type ="text/JavaScript">';  
                             echo 'alert("User has been successfully created, Please Log In now with you credentials!");';  
-                            echo 'window.location.href="logIn.php;"';
+                            echo 'window.location.href="logIn.php";';
                             echo '</script>';
                             exit();  
                         }else{
@@ -67,7 +67,7 @@
                     if ($results->num_rows > 0) {
                         $_SESSION["userLoggedIn"] = $name;
                         echo '<script type ="text/JavaScript">';  
-                        echo 'window.location.href="userMainPage.php;"';
+                        echo 'window.location.href="userMainPage.php";';
                         echo '</script>';
                         exit();
                     }else{
