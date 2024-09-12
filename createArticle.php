@@ -1,23 +1,12 @@
 <?php 
 include 'dbconnect.php';
 session_start();
-$title="";
-$article="";
-$articleID=1;
-if(!is_null($articleID)){
-    $sql = "SELECT * FROM Articles WHERE ID = ?";
-    $stmt= $conm->prepare($sql);
-    $stmt->bind_param('i', $articleID);
-    $stmt->execute();
-    $results = $stmt->get_result();
-    if($results->num_rows > 0){
-        $content =  $results->fetch_assoc();
-        $title = $content["Title"];
-        $article= $content["Article"];
-    }
+if(isset($_SESSION["title"]) and !empty($_SESSION["title"])){
+    $title = $_SESSION["title"];
+    $article = $_SESSION["article"];
 }else{
-
-    echo "Not set!";
+    $title ="";
+    $article="";
 }
 ?>
 <!DOCTYPE html>
@@ -55,17 +44,15 @@ if(!is_null($articleID)){
                 <input type="radio" name="topics" value="4"> WebDev
             </label>
             <label>
-              <input type="radio" name="topics" value="5"> ETC
-          </label>
+                <input type="radio" name="topics" value="5"> ETC
+            </label>
         </div>
             <label for="title">Titel:</label>
             <input type="text" id="title" name="title" value="<?php echo ($title); ?>" required>
-        
             <label for="content">Inhalt:</label>
-            <textarea id="content" name="content" rows="8" value="<?php echo ($title); ?>" required></textarea>
-        
-            <input type="submit" value="Create Article">
-            <button class="back-btn" onclick="window.history.back();">Go Back</button>
+            <textarea id="content" name="content" rows="8" required><?php echo ($article); ?></textarea>
+            <input type="submit" value="<?php  echo (isset($title) && !empty($title)) ? 'Edit' : 'Create';  ?> Article">
+            <button class="back-btn" onclick="window.history.back();"> Go Back</button>
         </form>
     </div>
     </main>

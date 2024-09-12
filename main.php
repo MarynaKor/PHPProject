@@ -91,11 +91,50 @@
                         $title = $_POST['title'];
                         $content = $_POST['content'];
                         $idUser = $_SESSION["userId"]; // Ensure this session variable is correctly set
-                        if(isset($_POST["articleId"])){
-                            
+                        if(isset($_POST["articleId"]) and !is_null($_POST["articleId"])) {
+                            $sql = "SELECT * FROM Articles WHERE ID = ?";
+                            $stmt= $conm->prepare($sql);
+                            $stmt->bind_param('i', $_POST["articleId"]);
+                            $stmt->execute();
+                            $results = $stmt->get_result();
+                            if($results->num_rows > 0){
+                                $content =  $results->fetch_assoc();
+                                $_SESSION["title"] = $content["Title"];
+                                $_SESSION["article"]= $content["Article"];
+                                $_SESSION["articleId"] = $_POST["articleId"];
+                                header("Location: createArticle.php");
+                                exit();
+                            }
+                        } else if(isset($_SESSION["articleId"]) and !empty($_SESSION["articleId"])) {
+                            if (isset($_POST["topics"])) {
+                                $idTopic = $_POST["topics"];
+                            } else {
+                                echo '<script type="text/javascript">';
+                                echo 'alert("You forgot to choose which topic it belongs, please choose a topic!");';
+                                echo 'window.location.href="createArticle.php";'; // Correct JavaScript syntax
+                                echo '</script>';
+                                exit(); 
+                            }
+                            $sql = "UPDATE Articles SET Title = ?, Article = ?, Author = ? WHERE ID = ?";
+                            $stmt = $conm->prepare($sql);
+                            $stmt->bind_param('ssii', $title, $content, $idUser, $_SESSION["articleId"]);
+
+                            if ($stmt->execute()) {
+                                echo '<script type="text/javascript">';
+                                echo 'alert("Article updated successfully.");';
+                                echo 'window.location.href = "userMainPage.php";'; // Redirect to the list page
+                                echo '</script>';
+                                unset($_SESSION['title']);
+                                unset($_SESSION['article']);
+                                unset($_SESSION['articleId']);
+                                exit();
+                            } else {
+                                echo "Error updating article: " . $stmt->error;
+                            }
+                            exit();
                         }else{
                         // Check if topics are set
-                        if (isset($_POST["topics"])) {
+                            if (isset($_POST["topics"])) {
                             $idTopic = $_POST["topics"];
                         } else {
                             echo '<script type="text/javascript">';

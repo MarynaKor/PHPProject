@@ -49,11 +49,11 @@ $results = $stmt->get_result();
                 <div>
                 <form method="POST" action="main.php?action=delete">
                   <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
-                  <Button type="submit" class="delete right"> Delete</Button>
+                  <button type="submit" class="delete right"> Delete</button>
                 </form>
                <form method="POST" action="main.php?action=createArticle">
                  <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
-                 <Button type= "submit" class="edit right"> Edit</Button>
+                 <button type= "submit" class="edit right"> Edit</button>
               </form>
                 </div>
             </li>
@@ -63,7 +63,7 @@ $results = $stmt->get_result();
         }
         ?>
       </ul>
-    <Button><a href="createArticle.php">Create New Article</a></Button>
+    <button><a href="createArticle.php">Create New Article</a></button>
     </div>
     </main>
     <footer>
