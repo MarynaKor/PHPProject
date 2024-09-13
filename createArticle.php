@@ -16,18 +16,27 @@ if(isset($_SESSION["title"]) and !empty($_SESSION["title"])){
   </head>
   <body>
     <header> 
-        <h1>This is the TECH BLOG </h1>
+        <h1> This is the TECH BLOG </h1>
         <ul>
-            <li><a href="default.asp">Databases</a></li>
-            <li><a href="news.asp">AI</a></li>
-            <li><a href="contact.asp">Cloud</a></li>
-            <li><a href="contact.asp">WebDev</a></li>
-            <li><a href="about.asp">ETC</a></li>
-            <li><a href="start.php">LogOut</a></li>
+            <li><a href="main.php?action=sort&id=2">Databases</a></li>
+            <li><a href="main.php?action=sort&id=1">AI</a></li>
+            <li><a href="main.php?action=sort&id=3">Cloud</a></li>
+            <li><a href="main.php?action=sort&id=4">WebDev</a></li>
+            <li><a href="main.php?action=sort&id=5">ETC</a></li>
+            <?php 
+            // Check if the session variable 'userId' is set to determine the login state
+            if (isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
+                // Session is set, show the Logout link
+                echo '<li><a href="main.php?action=logout" class="red">Logout</a></li>';
+            } else {
+                // Session is not set, show the Login/Register link
+                echo '<li><a href="logIn.php" class="red">LogIn/Register</a></li>';
+            }
+            ?>  
         </ul>
     </header>    
     <main class="">
-        <h2>Artikel Einsenden</h2>
+        <h2><?php  echo (isset($title) && !empty($title)) ? 'Edit' : 'Create';  ?> here the Article</h2>
 
         <form action="main.php?action=createArticle" method="POST">
           <div class="checkbox-group">

@@ -29,11 +29,11 @@ $results = $stmt->get_result();
     <header> 
         <h1>This is the TECH BLOG</h1>
         <ul>
-            <li><a href="default.asp">Databases</a></li>
-            <li><a href="news.asp">AI</a></li>
-            <li><a href="contact.asp">Cloud</a></li>
-            <li><a href="contact.asp">WebDev</a></li>
-            <li><a href="about.asp">ETC</a></li>
+            <li><a href="main.php?action=sort&id=2">Databases</a></li>
+            <li><a href="main.php?action=sort&id=1">AI</a></li>
+            <li><a href="main.php?action=sort&id=3">Cloud</a></li>
+            <li><a href="main.php?action=sort&id=4">WebDev</a></li>
+            <li><a href="main.php?action=sort&id=5">ETC</a></li>
             <li><a href="main.php?action=logout" class="red">LogOut</a></li>
 
         </ul>

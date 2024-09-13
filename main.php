@@ -199,6 +199,13 @@
                     }
                 } 
                 break;
+            case 'sort':
+                session_start();
+                $categoryId = $_GET["id"];
+                $_SESSION["catergoryId"]= $categoryId;
+                
+                header("Location: start.php");
+                exit();
             default:
                 echo "default case!";
                 break;
