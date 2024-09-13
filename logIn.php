@@ -20,11 +20,11 @@
             <h2>Register</h2>
             <form action="main.php?action=register" method="POST">
                 <div class="form-group">
-                    <label for="username">Benutzername:</label>
+                    <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Passwort:</label>
+                    <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
@@ -38,11 +38,11 @@
             <h2>Login</h2>
             <form action="main.php?action=login" method="POST">
                 <div class="form-group">
-                    <label for="username">Benutzername:</label>
+                    <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Passwort:</label>
+                    <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 <input type="submit" value="login">
