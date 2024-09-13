@@ -43,7 +43,7 @@ if(isset($_SESSION["catergoryId"])) {
             <?php
             if ($results->num_rows > 0) {
               while($row = $results->fetch_assoc()) {
-                echo "<div>"; 
+                echo "<div class='border'>"; 
                 echo "<h3>" . $row["Title"] ."</h3>";
                 echo "<p>" . $row["Article"]. "<p><br> <br>"; 
                 echo "</div>"; 

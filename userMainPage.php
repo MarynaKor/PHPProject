@@ -46,7 +46,7 @@ $results = $stmt->get_result();
               while($row = $results->fetch_assoc()) { ?>
                 <li>
                 <h3><?php echo($row["Title"])?></h3>
-                <div>
+                <div class="nextTo">
                 <form method="POST" action="main.php?action=delete">
                   <input type="hidden" name="articleId" value ="<?php echo($row["ID"])?>">
                   <button type="submit" class="delete right"> Delete</button>

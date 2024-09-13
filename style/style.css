@@ -52,7 +52,7 @@ header h1 {
 h2{
     text-align: center;
 }
-ul{
+ul, .nextTo{
     display: flex;
     justify-content: space-evenly;
     list-style: none;
@@ -81,6 +81,11 @@ a {
     grid-gap: 10px;
     background-color: #fff;
     color: #444;
+}
+.border{
+    border-style: dotted;
+    border-top: 0;
+    border-color: rgb(78, 78, 248, 0.4);
 }
 
 form {
